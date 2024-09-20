@@ -5,6 +5,7 @@
     - name: 编译golang项目
       delegate_to: localhost
       shell: |
+        export GOPROXY=https://goproxy.cn
         cd /Users/opensea/explore/goravel/scaffold
         GOOS=linux GOARCH=amd64 go build -o bin/scaffold-actor main.go
       register: build_output
