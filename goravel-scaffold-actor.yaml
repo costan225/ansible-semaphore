@@ -1,0 +1,37 @@
+---
+- name: scaffold-actor CI-CD
+  hosts: cloud-local
+  tasks:
+    - name: 编译golang项目
+      delegate_to: localhost
+      shell: |
+        cd /Users/opensea/explore/goravel/scaffold
+        GOOS=linux GOARCH=amd64 go build -o bin/scaffold-actor main.go
+      args:
+        chdir: /Users/opensea/explore/goravel/scaffold
+
+    - name: 拷贝可执行文件-1到远程机器
+      copy:
+        src: /Users/opensea/explore/goravel/scaffold/bin/scaffold-actor
+        dest: /usr/local/bin/serverTool1
+        mode: 0755
+
+    - name: Copy serverTool to remote machine as serverTool2
+      copy:
+        src: /path/to/your/go/project/serverTool
+        dest: /usr/local/bin/serverTool2
+        mode: 0755
+
+    - name: Stop the previous running process (if any)
+      shell: |
+        pkill -f serverTool1 || true
+        pkill -f serverTool2 || true
+      ignore_errors: yes
+
+    - name: Start serverTool1
+      shell: |
+        nohup /usr/local/bin/serverTool1 &
+
+    - name: Start serverTool2
+      shell: |
+        nohup /usr/local/bin/serverTool2 &
