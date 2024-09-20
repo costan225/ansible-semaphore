@@ -8,31 +8,31 @@
         export GOPROXY=https://goproxy.cn
         cd /Users/opensea/explore/goravel/scaffold
         GOOS=linux GOARCH=amd64 go build -o bin/scaffold-actor main.go
-      register: build_output
-      ignore_errors: yes
 
     - name: 拷贝可执行文件-1到远程机器
       copy:
         src: /Users/opensea/explore/goravel/scaffold/bin/scaffold-actor
-        dest: /usr/local/bin/serverTool1
+        dest: /home/openland/project/scaffold/actor/exec1/scaffold-actor1
         mode: 0755
 
-    - name: Copy serverTool to remote machine as serverTool2
+    - name: 拷贝可执行文件-2到远程机器
       copy:
-        src: /path/to/your/go/project/serverTool
-        dest: /usr/local/bin/serverTool2
+        src: /Users/opensea/explore/goravel/scaffold/bin/scaffold-actor
+        dest: /home/openland/project/scaffold/actor/exec2/scaffold-actor2
         mode: 0755
 
-    - name: Stop the previous running process (if any)
+    - name: 停止原服务集群
       shell: |
-        pkill -f serverTool1 || true
-        pkill -f serverTool2 || true
+        pkill -f scaffold-actor1 || true
+        pkill -f scaffold-actor2 || true
       ignore_errors: yes
 
-    - name: Start serverTool1
+    - name: 启动服务1
       shell: |
-        nohup /usr/local/bin/serverTool1 &
+        cd /home/openland/project/scaffold/actor/exec1
+        nohup ./scaffold-actor1 >/dev/null 2>&1 &
 
-    - name: Start serverTool2
+    - name: 启动服务2
       shell: |
-        nohup /usr/local/bin/serverTool2 &
+        cd /home/openland/project/scaffold/actor/exec2
+        nohup ./scaffold-actor2 >/dev/null 2>&1 &
