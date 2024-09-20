@@ -7,8 +7,6 @@
       shell: |
         cd /Users/opensea/explore/goravel/scaffold
         GOOS=linux GOARCH=amd64 go build -o bin/scaffold-actor main.go
-      args:
-        chdir: /Users/opensea/explore/goravel/scaffold
 
     - name: 拷贝可执行文件-1到远程机器
       copy:
