@@ -23,8 +23,9 @@
 
     - name: 停止原服务集群
       shell: |
-        pkill -f scaffold-actor1 || true
-        pkill -f scaffold-actor2 || true
+        pkill -f scaffold-actor1 
+        pkill -f scaffold-actor2 
+        sleep(3)
       ignore_errors: yes
 
     - name: 启动服务1
