@@ -30,9 +30,9 @@
     - name: 启动服务1
       shell: |
         cd /home/openland/project/scaffold/actor/exec1
-        nohup ./scaffold-actor1 >/dev/null 2>&1 &
+        nohup ./scaffold-actor1 >./trace.log 2>&1 &
 
     - name: 启动服务2
       shell: |
         cd /home/openland/project/scaffold/actor/exec2
-        nohup ./scaffold-actor2 >/dev/null 2>&1 &
+        nohup ./scaffold-actor2 >./trace.log 2>&1 &
